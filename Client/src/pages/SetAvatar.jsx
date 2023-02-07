@@ -57,13 +57,13 @@ export default function SetAvatar() {
         <Container>
             <div className="title-container">
                 <h1>
-                    Pick an avatar as your profile pictures
+                    Pick an avatar as your profile picture
                 </h1>
             </div>
             <div className="avatars">{
                 avatars.map((avatar,index)=>{
                         return (
-                            <div key = {index} className={`avatar ${selectedAvatars === index ? "selected":""}`}>
+                            <div className={`avatar ${selectedAvatars === index ? "selected":""}`}>
                                 <img src={`data:image/svg+xml;base64,${avatar}`} alt = "avatar"
                                 onClick={()=> setSelectedAvatars(index)}
                                 />
