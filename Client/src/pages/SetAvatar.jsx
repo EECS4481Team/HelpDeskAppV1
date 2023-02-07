@@ -21,6 +21,7 @@ export default function SetAvatar() {
         draggable: true,
         theme: "dark",
         };
+
     const setProfilePicture = async () => {
         if(selectedAvatars === undefined){
             toast.error("Please select an avatar",toastOptions);
@@ -28,8 +29,8 @@ export default function SetAvatar() {
             const user = await JSON.parse(localStorage.getItem("eecs4481-project"));
             const { data } = await axios.post(`${setAvatarRoute}/${user._id}`,{image: avatars[selectedAvatars]});
         }
-        
     };
+
     useEffect(() => {
         getImages();
     },[]);
