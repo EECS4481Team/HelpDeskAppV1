@@ -21,7 +21,6 @@ export default function SetAvatar() {
         draggable: true,
         theme: "dark",
         };
-
     const setProfilePicture = async () => {
         if(selectedAvatars === undefined){
             toast.error("Please select an avatar",toastOptions);
@@ -29,8 +28,8 @@ export default function SetAvatar() {
             const user = await JSON.parse(localStorage.getItem("eecs4481-project"));
             const { data } = await axios.post(`${setAvatarRoute}/${user._id}`,{image: avatars[selectedAvatars]});
         }
+        
     };
-
     useEffect(() => {
         getImages();
     },[]);
@@ -58,13 +57,13 @@ export default function SetAvatar() {
         <Container>
             <div className="title-container">
                 <h1>
-                    Pick an avatar as your profile picture
+                    Pick an avatar as your profile pictures
                 </h1>
             </div>
             <div className="avatars">{
                 avatars.map((avatar,index)=>{
                         return (
-                            <div className={`avatar ${selectedAvatars === index ? "selected":""}`}>
+                            <div key = {index} className={`avatar ${selectedAvatars === index ? "selected":""}`}>
                                 <img src={`data:image/svg+xml;base64,${avatar}`} alt = "avatar"
                                 onClick={()=> setSelectedAvatars(index)}
                                 />

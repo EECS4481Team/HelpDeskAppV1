@@ -161,6 +161,7 @@ form{
         }
     }
 }
+
 `;
 
 export default Register;
