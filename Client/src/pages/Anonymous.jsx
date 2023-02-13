@@ -6,6 +6,7 @@ import {ToastContainer, toast} from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import axios from "axios";
 import { anonymousRoute } from "../utils/APIRoutes";
+
 function Anonymous(){
     const navigate = useNavigate();
     const [values,setValues]=useState({
@@ -34,7 +35,9 @@ function Anonymous(){
                 toast.error(data.msg, toastOptions);
             }
             if(data.status === true){
-                localStorage.setItem(`eecs4481-project`, JSON.stringify(data.user));
+                const article = {  name: username}
+                axios.post('localhost/adminLogin', article)
+                // localStorage.setItem(`eecs4481-project`, JSON.stringify(data.user));
                 navigate("/");
             }
             
