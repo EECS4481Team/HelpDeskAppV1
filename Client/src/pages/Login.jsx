@@ -30,10 +30,14 @@ function Login(){
                 username,
                 password,
             });
-            if(data.status === false){
+            if (data === undefined){
+            // if(data.status === false){
+                console.log(false)
                 toast.error(data.msg, toastOptions);
             }
-            if(data.status === true){
+            if(data != undefined){
+            // if(data.status === true){
+                console.log(true)
                 localStorage.setItem(`eecs4481-project`, JSON.stringify(data.user));
                 navigate("/");
             }

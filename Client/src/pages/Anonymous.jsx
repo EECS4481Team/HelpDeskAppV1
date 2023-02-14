@@ -28,16 +28,14 @@ function Anonymous(){
                 console.log("in validation",anonymousRoute);
             const {usercode,username} = values;
             const {data} = await axios.post(anonymousRoute,{
-                username,
-                usercode,
+                name: username //,
+                // usercode,
             });
             if(data.status === false){
                 toast.error(data.msg, toastOptions);
             }
             if(data.status === true){
-                const article = {  name: username}
-                axios.post('localhost/adminLogin', article)
-                // localStorage.setItem(`eecs4481-project`, JSON.stringify(data.user));
+                localStorage.setItem(`eecs4481-project`, JSON.stringify(data.user));
                 navigate("/");
             }
             

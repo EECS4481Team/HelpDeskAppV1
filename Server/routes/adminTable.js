@@ -87,36 +87,48 @@ router.get("/email", verifyToken, (request, response) => {
 router.post("/newAdmin", (request, response) =>
 {
     let input = request.body;
-    if( !input.name || !input.userName || !input.password || !input.email)
+    if( !input.username || !input.username || !input.password || !input.email)
     {
         response.status(400).send("All fields must be filled")
+        return
     }
-    
-    bcrypt.genSalt(saltRounds, function(err, salt) {
-        if (err) console.log(err);
+    else(
+        bcrypt.genSalt(saltRounds, function(err, salt) {
+            if (err) {console.log("Salting error")
+            response.status(500).send("Salting error")
+            return};
 
-        bcrypt.hash(input.password, salt, function(err, hash) {
-            if (err) console.log(err);
-            
-            con.query(`SELECT COUNT(*) as numRows FROM admin_table`, (err, result) =>
-            {
-                let sqlQuery = `INSERT INTO admin_table (User_ID, Name, UserName, PasswordHash, Email) VALUES (${result[0].numRows + 1}, '${input.name}', '${input.userName}', '${hash}', '${input.email}' )`;
-                con.query(sqlQuery, function (err, result) {
-                    if (err) console.log(err);
-    
-                    else console.log("1 Admin inserted");
-                });
-            });
-         });
-      });
-      response.sendStatus(200);
+            bcrypt.hash(input.password, salt, function(err, hash) {
+                if (err) {console.log("Hashing error")
+                response.status(500).send("Hashing error")
+                return};
+                
+                con.query(`SELECT COUNT(*) as numRows FROM admin_table`, (err, result) =>
+                {
+                    let sqlQuery = `INSERT INTO admin_table (User_ID, Name, UserName, PasswordHash, Email) VALUES (${result[0].numRows + 1}, '${input.username}', '${input.username}', '${hash}', '${input.email}' )`;
+                    con.query(sqlQuery, function (err, result) {
+                        if (err) 
+                        {
+                            console.log("An admin with this name already exists");
+                            response.status(400).send("An admin with this name already exists")
+                            return
+                        }
+        
+                        else console.log("1 Admin inserted");
+                            response.sendStatus(200);
+                        })
+                    })
+                })
+            })
+        )
+        
 });
 
 //login
 router.post("/Login", async (request,response) =>
 {
     let user = request.body;
-    let sqlQuery = `SELECT UserName, PasswordHash FROM admin_table WHERE username = '${user.userName}'`
+    let sqlQuery = `SELECT UserName, PasswordHash FROM admin_table WHERE username = '${user.username}'`
 
     con.query(sqlQuery, async function (err, result) {
         if (err) console.log(err);   
@@ -124,6 +136,7 @@ router.post("/Login", async (request,response) =>
         if( JSON.stringify(result) == "[]" )
         {
             response.status(400).send("no such user exists")
+            console.log("NSU exist")
             return
         }
         
@@ -131,13 +144,18 @@ router.post("/Login", async (request,response) =>
         if( !validPassword )
         {
             response.status(400).send("Incorrect Password")
+            console.log("bad password")
             return
         }
-
-        let token = jwt.sign({user}, process.env.JWT_KEY, {
-            expiresIn: "1h",
-        });
-        response.json(token);
+        else
+        {
+            let token = jwt.sign({user}, process.env.JWT_KEY, {
+                expiresIn: "1h",
+            });
+            console.log(token)
+            response.status(200).json(token);
+            return
+        }
     })
 })
 
