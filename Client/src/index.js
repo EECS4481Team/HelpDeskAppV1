@@ -1,17 +1,26 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
-import './index.css';
+import style from './index.css';
 import App from './App';
 
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
- 
-    <App />
- 
+    <>
+    <div class="intro">
+    <div class="black"></div>  
+    <div class="white"></div>
+    <div class="boxfather">
+      <div class="box">
+        <h1>Anonymous Chat</h1>
+        <button type="button" class="btn1" onClick="javascript:window.location='/register'">Enter</button>
+      </div>
+    </div>
+    
+  </div>
+  
+  </>
 );
 
-// If you want to start measuring performance in your app, pass a function
-// to log results (for example: reportWebVitals(console.log))
-// or send to an analytics endpoint. Learn more: https://bit.ly/CRA-vitals
+
 

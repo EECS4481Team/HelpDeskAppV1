@@ -4,7 +4,6 @@ import {BrowserRouter, Routes, Route} from "react-router-dom";
 import Register from "./pages/Register";
 import Chat from "./pages/Chat";
 import Login from "./pages/Login";
-import Anonymous from "./pages/Anonymous";
 import SetAvatar from "./pages/SetAvatar";
 export default function App() {
   return(
@@ -14,7 +13,6 @@ export default function App() {
         <Route path="/login" element={<Login />}/>
         <Route path="/setAvatar" element={<SetAvatar />}/>
         <Route path="/chat" element={<Chat />}/>
-        <Route path="/anonymous" element={<Anonymous/>}/>
         
       </Routes>
     </BrowserRouter>
