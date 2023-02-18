@@ -67,7 +67,7 @@ function Login(){
                 </div>
                 <input type="text" placeholder="Username" name="username" onChange={(e)=> handleChange(e)}/>
                 <input type="password" placeholder="Password" name="password" onChange={(e)=> handleChange(e)}/>
-                <button type="submit">Log In</button>
+                <button type="submit" onClick={() => { handleValidation === true ? window.location='/chat':window.location='/login'}}>Log In</button>
                 <span>  
                     Don't have an account ? <Link to="/register">Register</Link>
                     </span>
