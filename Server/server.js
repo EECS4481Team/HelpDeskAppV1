@@ -1,9 +1,9 @@
 const express = require("express");
 const app = express();
-const { resourceLimits } = require('worker_threads');
+// const { resourceLimits } = require('worker_threads');
 const cors = require("cors");
-const mysql = require("mysql");
-const dotenv = require('dotenv').config();
+// const mysql = require("mysql");
+// const dotenv = require('dotenv').config();
 const server = require('http').createServer(app);
 const io = require('socket.io')(server, { cors:
 { origin: "http://localhost:3000" }});
@@ -16,22 +16,18 @@ const anonAccounts = require("./routes/anonTable.js")
 const pubChatRooms = require("./routes/publicRoom.js")
 
 app.set('socketio', io)
-app.set('view engine', 'ejs');
+// app.set('view engine', 'ejs');
 app.use(cors());
-
-
 
 app.get("/api", (request, response) => /*, next  (also included in function call sometimes) used to declare next function*/ { 
     console.log("Welcome")
     response.status(200).send("Welcome")
 });
 
-
 app.use('/api/admin', adminAccounts)//use this "router" for any page with /adminLogin
 app.use('/api/anonymous', anonAccounts)//use this "router" for any page with /anonomousLogin
 app.use('/helpDesk', privChatRooms)//use this "router" for any page with /helpDesk
 app.use('/chatRooms', pubChatRooms)//use this "router" for any page with /chatRooms
-
 
 io.on("connection", (socket) => {
     console.log(`User Connected: ${socket.id}`);
@@ -49,10 +45,6 @@ io.on("connection", (socket) => {
       console.log("User Disconnected", socket.id);
     });
   });
-
-
-
-
 
 server.listen(port, () =>
 {

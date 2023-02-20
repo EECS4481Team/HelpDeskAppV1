@@ -52,16 +52,6 @@ const verifyToken = (request, response, next) => {
     }
 }
 
-//get name
-router.get("/name", verifyToken,  (request, response) => { 
-
-    //problem, sql injection very likely
-    con.query(`SELECT Name FROM admin_table WHERE UserName = '${request.query.userName}'`, function (err, result, fields) { 
-        if (err) throw err;
-        response.send(result);
-    })
-});
-
 //get ID
 router.get("/username", verifyToken, (request, response) => { 
     console.log(request.query);
@@ -84,10 +74,10 @@ router.get("/email", verifyToken, (request, response) => {
 });
 
 //post new admin
-router.post("/newAdmin", (request, response) =>
+router.post("/register", (request, response) =>
 {
     let input = request.body;
-    if( !input.username || !input.username || !input.password || !input.email)
+    if( !input.username || !input.password || !input.email)
     {
         response.status(400).send("All fields must be filled")
         return
@@ -105,7 +95,7 @@ router.post("/newAdmin", (request, response) =>
                 
                 con.query(`SELECT COUNT(*) as numRows FROM admin_table`, (err, result) =>
                 {
-                    let sqlQuery = `INSERT INTO admin_table (User_ID, Name, UserName, PasswordHash, Email) VALUES (${result[0].numRows + 1}, '${input.username}', '${input.username}', '${hash}', '${input.email}' )`;
+                    let sqlQuery = `INSERT INTO admin_table (User_ID, UserName, PasswordHash, Email) VALUES (${result[0].numRows + 1}, '${input.username}', '${hash}', '${input.email}' )`;
                     con.query(sqlQuery, function (err, result) {
                         if (err) 
                         {
@@ -152,28 +142,11 @@ router.post("/Login", async (request,response) =>
             let token = jwt.sign({user}, process.env.JWT_KEY, {
                 expiresIn: "1h",
             });
-            console.log(token)
             response.status(200).json(token);
             return
         }
     })
 })
-
-
-//put name
-router.put("/newName", verifyToken, (request, response) =>
-{
-    let input = request.body;
-    if(verifyUserIdentity(request, response))
-    {
-        let sqlQuery = `UPDATE admin_table SET Name = '${input.newname}' WHERE UserName = '${input.userName}'`;
-        con.query(sqlQuery, function (err, result) {
-            if (err) console.log(err);
-            else console.log("Admin name update");
-        });
-        response.sendStatus(200);
-    }
-});
 
 //put password hash
 router.put("/newPassword", verifyToken, (request, response) =>
