@@ -29,14 +29,17 @@ function Login(){
             const {data} = await axios.post(loginRoute,{
                 username,
                 password,
+            }).catch(function (error){
+                if(error.response){
+                    toast.error("Login Failed!", toastOptions);
+                }
             });
-            if(data.status === false){
-                toast.error(data.msg, toastOptions);
+            if(data.status === undefined){
+                console.log(data.username);
+                localStorage.setItem(`HelpDeskAppV1`, JSON.stringify(data.user));
+                navigate("/chat");
             }
-            if(data.status === true){
-                localStorage.setItem(`eecs4481-project`, JSON.stringify(data.user));
-                navigate("/");
-            }
+           
             
         }
     };

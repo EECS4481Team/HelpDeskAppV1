@@ -110,14 +110,16 @@ router.post("/newAdmin", (request, response) =>
 router.post("/Login", async (request,response) =>
 {
     let user = request.body;
-    let sqlQuery = `SELECT UserName, PasswordHash FROM admin_table WHERE username = '${user.userName}'`
-
+    console.log(user)
+    let sqlQuery = `SELECT UserName, PasswordHash FROM admin_table WHERE username = '${user.username}'`
+    console.log(sqlQuery)
     con.query(sqlQuery, async function (err, result) {
         if (err) console.log(err);   
 
         if( JSON.stringify(result) == "[]" )
         {
             response.status(400).send("no such user exists")
+            console.log(user)
             return
         }
         

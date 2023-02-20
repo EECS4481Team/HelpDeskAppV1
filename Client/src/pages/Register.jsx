@@ -38,7 +38,7 @@ function Register(){
             }
             if(data.status === true){
                 localStorage.setItem(`Client`, JSON.stringify(data.user));
-                navigate("/");
+                navigate("/login");
             }
             
         }
