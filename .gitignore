@@ -22,4 +22,9 @@
 /Client/yarn-debug.log*
 /Client/yarn-error.log*
 
+#Server Ignore
 /Server/.env
+/Server/.vscode
+/Server/node_modules
+/Server/views
+/Server/index.html
