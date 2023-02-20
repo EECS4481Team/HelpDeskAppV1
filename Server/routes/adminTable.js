@@ -3,6 +3,7 @@ const parser = require('body-parser');
 const router = express.Router();
 const mysql = require('mysql');
 const fs = require('fs');
+const verify = require('./../verification.js');
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 const saltRounds = 10;
@@ -29,31 +30,9 @@ con.connect( (err) =>
     else {console.log("DB Connection successful")};
 })
 
-const verifyToken = (request, response, next) => {
-    
-    if(!request.headers.authorization)
-    {
-        response.status(401).send("Unauthorized request");
-        return
-    }
-    const token = request.headers["authorization"].split(" ")[1];
-    if(!token)
-    {
-        response.status(401).send("Access denied, No token provided")
-        return
-    }
-    try{
-        const decode = jwt.verify(token, process.env.JWT_KEY)
-        request.user = decode.user;
-        next();
-    }catch (err)
-    {
-        response.status(400).send("Invalid Token")
-    }
-}
 
 //get ID
-router.get("/username", verifyToken, (request, response) => { 
+router.get("/username", verify.verifyToken, (request, response) => { 
     console.log(request.query);
 
     //problem, sql injection very likely
@@ -64,7 +43,7 @@ router.get("/username", verifyToken, (request, response) => {
 });
 
 //get email
-router.get("/email", verifyToken, (request, response) => { 
+router.get("/email", verify.verifyToken, (request, response) => { 
 
     //problem, sql injection very likely
     con.query(`SELECT Email FROM admin_table WHERE UserName = '${request.query.userName}'`, function (err, result, fields) { 
@@ -115,7 +94,7 @@ router.post("/register", (request, response) =>
 });
 
 //login
-router.post("/Login", async (request,response) =>
+router.post("/login", async (request,response) =>
 {
     let user = request.body;
     let sqlQuery = `SELECT UserName, PasswordHash FROM admin_table WHERE username = '${user.username}'`
@@ -149,7 +128,7 @@ router.post("/Login", async (request,response) =>
 })
 
 //put password hash
-router.put("/newPassword", verifyToken, (request, response) =>
+router.put("/newPassword", verify.verifyUserIdentity, (request, response) =>
 {
     let input = request.body;
     
@@ -175,7 +154,7 @@ router.put("/newPassword", verifyToken, (request, response) =>
 });
 
 //put email
-router.put("/newEmail", verifyToken, (request, response) =>
+router.put("/newEmail", verify.verifyUserIdentity, (request, response) =>
 {
     let input = request.body;
     let sqlQuery = `UPDATE admin_table SET name = '${input.newMail}' WHERE UserName = '${input.userName}'`;
@@ -191,7 +170,7 @@ router.put("/newEmail", verifyToken, (request, response) =>
 });
 
 //delete user
-router.delete("/Delete", verifyToken, (request, response) =>
+router.delete("/Delete", verify.verifyUserIdentity, (request, response) =>
 {
     let input = request.body;
     let sqlQuery = `DELETE FROM admin_table WHERE UserName = '${input.userName}'`
@@ -204,17 +183,5 @@ router.delete("/Delete", verifyToken, (request, response) =>
         response.sendStatus(200);
     }
 });
-
-//function verifies user is the same as the user to be altered/deleted (preventing abuse of admin power against other admins)
-function verifyUserIdentity(request, response)
-{
-    let decode = jwt.verify(request.headers["authorization"].split(" ")[1], process.env.JWT_KEY);
-    if(decode.user.userName === request.body.userName)
-    {
-        return true;
-    }
-    response.status(400).send("Unauthorized request");
-    return false;
-}
 
 module.exports = router;
