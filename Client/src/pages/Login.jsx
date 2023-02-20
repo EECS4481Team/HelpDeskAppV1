@@ -34,7 +34,8 @@ function Login(){
                 toast.error(data.msg, toastOptions);
             }
             if(data.status === true){
-                localStorage.setItem(`eecs4481-project`, JSON.stringify(data.user));
+                toast.success('Successfully login!', toastOptions);
+                localStorage.setItem(`Client`, JSON.stringify(data.user));
                 navigate("/");
             }
             
@@ -67,7 +68,7 @@ function Login(){
                 </div>
                 <input type="text" placeholder="Username" name="username" onChange={(e)=> handleChange(e)}/>
                 <input type="password" placeholder="Password" name="password" onChange={(e)=> handleChange(e)}/>
-                <button type="submit" onClick={() => { handleValidation === true ? window.location='/chat':window.location='/login'}}>Log In</button>
+                <button type="submit" onClick={() => { toast.error() ? window.location='/login':window.location='/chat'}}>Log In</button>
                 <span>  
                     Don't have an account ? <Link to="/register">Register</Link>
                     </span>
