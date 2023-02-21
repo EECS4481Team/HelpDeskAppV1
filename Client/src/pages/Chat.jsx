@@ -9,6 +9,11 @@ function Chat(){
     const [room,setRoom] = useState("");
     const [showChat, setShowChat] = useState(false);
     var val = "";
+
+    if (window.location.pathname == "/chat/anon") {
+      localStorage.setItem(`HelpDeskAppV1`, null);
+    }
+    
     if (localStorage.getItem(`HelpDeskAppV1`) != null) {
       //Get the "data" from localStorage using key `HelpDeskAppV1`
       var str = localStorage.getItem(`HelpDeskAppV1`);

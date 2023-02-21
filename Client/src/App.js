@@ -13,6 +13,7 @@ export default function App() {
         <Route path="/login" element={<Login />}/>
         <Route path="/setAvatar" element={<SetAvatar />}/>
         <Route path="/chat" element={<Chat />}/>
+        <Route path="/chat/anon" element={<Chat />}/>
         
       </Routes>
     </BrowserRouter>
