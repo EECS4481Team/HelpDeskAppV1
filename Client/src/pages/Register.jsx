@@ -33,13 +33,9 @@ function Register(){
                 email,
                 password,
             });
-            if(data.status === false){
-                toast.error(data.msg, toastOptions);
-            }
-            if(data.status === true){
-                toast.success('Successfully login!', toastOptions);
-                localStorage.setItem(`Client`, JSON.stringify(data.user));
-                navigate("/");
+            if(data.status === undefined){
+                localStorage.setItem(`HelpDeskAppV1Reg`, JSON.stringify(data.user));
+                navigate("/login");
             }
             
         }
@@ -79,7 +75,7 @@ function Register(){
                 <input type="email" placeholder="Email" name="email" onChange={(e)=> handleChange(e)}/>
                 <input type="password" placeholder="Password" name="password" onChange={(e)=> handleChange(e)}/>
                 <input type="password" placeholder="Confirm Password" name="confirmPassword" onChange={(e)=> handleChange(e)}/>
-                <button type="submit" onClick={() => { toast.success() ? window.location='/login':window.location='/register'}}>Create User</button>
+                <button type="submit">Create User</button>
                 <span>  
                     Already have an account ? <Link to="/login">Login</Link>
                     </span>
@@ -89,7 +85,7 @@ function Register(){
             </form>
         </FormContainer>
         <ToastContainer />
-    </>   
+    </>
     );
 }
 

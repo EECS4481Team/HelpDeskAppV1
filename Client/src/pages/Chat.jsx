@@ -2,12 +2,15 @@ import React,{useState} from "react";
 import io from "socket.io-client";
 import "./Chat.css"
 import ChatRoom from "./ChatRoom";
+import "react-toastify/dist/ReactToastify.css";
 const socket = io.connect("http://localhost:3001");
 function Chat(){
 
     const [username, setUsername] = useState("")
     const [room,setRoom] = useState("");
     const [showChat, setShowChat] = useState(false);
+    const cat = localStorage.getItem(`HelpDeskAppV1`);
+    console.log(cat);
     
     const joinRoom = () => {
       if (username !== "" && room !== ""){

@@ -29,15 +29,17 @@ function Login(){
             const {data} = await axios.post(loginRoute,{
                 username,
                 password,
+            }).catch(function (error){
+                if(error.response){
+                    toast.error("Login Failed!", toastOptions);
+                }
             });
-            if(data.status === false){
-                toast.error(data.msg, toastOptions);
+            if(data.status === undefined){
+                console.log(data.username);
+                localStorage.setItem(`HelpDeskAppV1`, JSON.stringify(data.user));
+                navigate("/chat");
             }
-            if(data.status === true){
-                toast.success('Successfully login!', toastOptions);
-                localStorage.setItem(`Client`, JSON.stringify(data.user));
-                navigate("/");
-            }
+           
             
         }
     };
@@ -68,7 +70,7 @@ function Login(){
                 </div>
                 <input type="text" placeholder="Username" name="username" onChange={(e)=> handleChange(e)}/>
                 <input type="password" placeholder="Password" name="password" onChange={(e)=> handleChange(e)}/>
-                <button type="submit" onClick={() => { toast.error() ? window.location='/login':window.location='/chat'}}>Log In</button>
+                <button type="submit">Log In</button>
                 <span>  
                     Don't have an account ? <Link to="/register">Register</Link>
                     </span>
