@@ -35,7 +35,7 @@ function Login(){
                 }
             });
             if(data.status === undefined){
-                console.log(data.username);
+                console.log(data);
                 localStorage.setItem(`HelpDeskAppV1`, JSON.stringify(data));
                 navigate("/chat");
             }

@@ -2,16 +2,29 @@ import React,{useState} from "react";
 import io from "socket.io-client";
 import "./Chat.css"
 import ChatRoom from "./ChatRoom";
-import "react-toastify/dist/ReactToastify.css";
 const socket = io.connect("http://localhost:3001");
 function Chat(){
 
     const [username, setUsername] = useState("")
     const [room,setRoom] = useState("");
     const [showChat, setShowChat] = useState(false);
-    const cat = localStorage.getItem(`HelpDeskAppV1`);
-    console.log(cat);
-    
+    //Get the "data" from localStorage using key `HelpDeskAppV1`
+    var str = localStorage.getItem(`HelpDeskAppV1`);
+    //Gives a string in base64, only need info between 2 periods
+    var subStr = str.substring(
+      str.indexOf('.') + 1, 
+      str.lastIndexOf('.')
+    );
+    //Decode from base64
+    var dec = atob(subStr);
+    //Get substring between second instance of ':' and first instance of ','
+    var newStr = dec.substring(
+      str.indexOf(':', 10) + 1, 
+      str.indexOf(',')
+    );
+    //Check
+    console.log(newStr);
+
     const joinRoom = () => {
       if (username !== "" && room !== ""){
         socket.emit("join_room",room);
