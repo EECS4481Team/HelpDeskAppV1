@@ -34,7 +34,9 @@ function Register(){
                 password,
             });
             if(data.status === undefined){
-                localStorage.setItem(`HelpDeskAppV1`, JSON.stringify(data.user));
+
+                localStorage.setItem(`HelpDeskAppV1Reg`, JSON.stringify(data.user));
+
                 navigate("/login");
             }
             

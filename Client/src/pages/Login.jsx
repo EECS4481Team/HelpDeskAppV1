@@ -75,7 +75,7 @@ function Login(){
                     Don't have an account ? <Link to="/register">Register</Link>
                     </span>
                     <span>  
-                    Are you an Anonymous User ? <Link to="/chat">Join Chat</Link>
+                    Are you an Anonymous User ? <Link to="/chat/anon">Join Chat</Link>
                     </span>
             </form>
         </FormContainer>
