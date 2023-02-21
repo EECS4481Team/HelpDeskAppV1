@@ -33,11 +33,8 @@ function Register(){
                 email,
                 password,
             });
-            if(data.status === false){
-                toast.error(data.msg, toastOptions);
-            }
-            if(data.status === true){
-                localStorage.setItem(`Client`, JSON.stringify(data.user));
+            if(data.status === undefined){
+                localStorage.setItem(`HelpDeskAppV1`, JSON.stringify(data.user));
                 navigate("/login");
             }
             
