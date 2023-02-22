@@ -50,7 +50,6 @@ function AnonymousChat(){
               }}
             />
             <button onClick={joinRoom}>Join A Room</button>
-            <button onClick={toggleModal}>List of Help Desk Room ID</button>
 
           </div>
         ) : (
