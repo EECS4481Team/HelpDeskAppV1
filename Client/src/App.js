@@ -5,6 +5,7 @@ import Register from "./pages/Register";
 import Chat from "./pages/Chat";
 import Login from "./pages/Login";
 import SetAvatar from "./pages/SetAvatar";
+import AnonymousChat from "./pages/AnonymousChat";
 export default function App() {
   return(
     <BrowserRouter>
@@ -13,7 +14,7 @@ export default function App() {
         <Route path="/login" element={<Login />}/>
         <Route path="/setAvatar" element={<SetAvatar />}/>
         <Route path="/chat" element={<Chat />}/>
-        <Route path="/chat/anon" element={<Chat />}/>
+        <Route path="/chat/anon" element={<AnonymousChat />}/>
         <Route path="" element={<Login />}/>
         
       </Routes>
