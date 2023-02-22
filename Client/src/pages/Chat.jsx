@@ -47,7 +47,7 @@ function Chat(){
         {!showChat ? (
       <div className="chatContainer">
        <h3> Join A Chat</h3>
-        <input type="text" placeholder="John ..." value={val} onChange={(event) => {setUsername(event.target.value);}}/>
+        <input type="text" placeholder="John ..." defaultValue={val} onChange={(event) => {setUsername(event.target.value);}}/>
         <input type="text" placeholder="Room ID ..." onChange={(event) => {setRoom(event.target.value);}}/> 
         <button onClick={joinRoom}> Join A Room</button>
       </div>
