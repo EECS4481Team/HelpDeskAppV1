@@ -1,6 +1,6 @@
 import React,{useEffect, useState} from 'react'
 import ScrollToBottom from "react-scroll-to-bottom";
-function ChatRoom({socket,username,room}) {
+function GlobalChatRoom({socket,username,room}) {
     const [currentMessage, setCurrentMessage] =useState("");
     const [messageList, setMessageList] = useState([]);
 
@@ -30,7 +30,7 @@ function ChatRoom({socket,username,room}) {
     
     <div className="chat-window">
         <div className="chat-header">
-            <p>Live Chat</p>
+            <p>Global Chat Feel Free to Talk Each Other</p>
         </div>
         <div className="chat-body">
             <ScrollToBottom className='message-container'>
@@ -66,4 +66,4 @@ function ChatRoom({socket,username,room}) {
   )
 }
 
-export default ChatRoom
+export default GlobalChatRoom

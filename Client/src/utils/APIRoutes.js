@@ -4,3 +4,4 @@ export const loginRoute = `${host}/api/admin/Login`;
 export const anonymousRoute = `${host}/api/anonymous`;
 export const setAvatarRoute = `${host}/api/auth/setAvatar`; //???
 export const allUsersRoute = `${host}/api/auth/allusers`; //???
+export const chatRoute = `${host}/api/create`;

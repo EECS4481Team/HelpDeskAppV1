@@ -1,17 +1,18 @@
 import React,{useState} from "react";
 import io from "socket.io-client";
 import "./Chat.css"
-import ChatRoom from "./ChatRoom";
+import GlobalChatRoom from "./GlobalChatRoom";
+
 
 const socket = io.connect("http://localhost:3001");
 
-function AnonymousChat(){
+function GlobalChat(){
 
     const [username, setUsername] = useState("");
-    const [room, setRoom] = useState("");
+    const room = useState("Public");
     const [showChat, setShowChat] = useState(false);
     const [modal,setModal] = useState(false);
-    const [showHelpDesk, setShowHelpDesk] = useState(false);
+
     const toggleModal = () => {
         setModal(!modal)
     }
@@ -19,14 +20,7 @@ function AnonymousChat(){
       if (username !== "" && room !== "") {
         socket.emit("join_room", room);
         console.log(room)
-        if(room.includes("HelpDesk"))
-        {
-            console.log("hi");
-            setShowHelpDesk(true);
-            console.log(showHelpDesk);
-        }else{
-            setShowChat(true);
-        }
+        setShowChat(true);
       }
     };
   
@@ -34,7 +28,7 @@ function AnonymousChat(){
       <div className="Chat">
         {!showChat ? (
           <div className="chatContainer">
-            <h3>Join A Chat</h3>
+            <h3>Anonymous Chat</h3>
             <input
               type="text"
               placeholder="Name..."
@@ -42,23 +36,17 @@ function AnonymousChat(){
                 setUsername(event.target.value);
               }}
             />
-            <input
-              type="text"
-              placeholder="Room ID..."
-              onChange={(event) => {
-                setRoom(event.target.value);
-              }}
-            />
-            <button onClick={joinRoom}>Join A Room</button>
-            <button onClick={toggleModal}>List of Help Desk Room ID</button>
-
+            <button onClick={joinRoom}>Join A Global Chat</button>
+            <button>Private Chat</button>
+            <button>Register as Admin</button> 
+            <button>Login as Admin</button>
           </div>
         ) : (
             <>
-     
-                    <ChatRoom socket={socket} username={username} room={room}/>
-             
-            
+                <GlobalChatRoom socket={socket} username={username} room={room}/>
+                        <h2>List of Private Chat Room</h2>
+                        <p> Hello </p>
+
             </>
         )}
       </div>
@@ -67,7 +55,7 @@ function AnonymousChat(){
 
 
 
-export default AnonymousChat;
+export default GlobalChat;
 /*
               
             {modal && (
