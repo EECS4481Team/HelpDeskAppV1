@@ -1,8 +1,9 @@
-import React,{useState} from "react";
+import React,{useEffect, useState} from "react";
 import io from "socket.io-client";
 import "./Chat.css"
 import GlobalChatRoom from "./GlobalChatRoom";
-
+import axios from "axios"
+import { useNavigate } from "react-router-dom";
 
 const socket = io.connect("http://localhost:3001");
 
@@ -12,7 +13,11 @@ function GlobalChat(){
     const room = useState("Public");
     const [showChat, setShowChat] = useState(false);
     const [modal,setModal] = useState(false);
-
+    const navigate = useNavigate();
+    const[posts,setPosts] =useState([])
+    useEffect(()=> {
+      axios.get()
+    })
     const toggleModal = () => {
         setModal(!modal)
     }
@@ -23,7 +28,16 @@ function GlobalChat(){
         setShowChat(true);
       }
     };
-  
+    const movePrivate = () => {
+      navigate("/chat/anon")
+    }
+    const moveAdmin = () => {
+      navigate("/login")
+    }
+    const moveRegister = () => {
+      navigate("/register")
+    }
+
     return (
       <div className="Chat">
         {!showChat ? (
@@ -37,9 +51,9 @@ function GlobalChat(){
               }}
             />
             <button onClick={joinRoom}>Join A Global Chat</button>
-            <button>Private Chat</button>
-            <button>Register as Admin</button> 
-            <button>Login as Admin</button>
+            <button onClick={movePrivate}>Private Chat</button>
+            <button onClick={moveRegister}>Register as Admin</button> 
+            <button onClick={moveAdmin}>Login as Admin</button>
           </div>
         ) : (
             <>

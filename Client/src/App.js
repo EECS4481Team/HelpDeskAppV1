@@ -17,7 +17,7 @@ export default function App() {
         <Route path="/chat" element={<Chat />}/>
         <Route path="/chat/anon" element={<AnonymousChat />}/>
         <Route path="/globalchat" element={<GlobalChat />}/>
-        <Route path="" element={<Login />}/>
+        <Route path="" element={<GlobalChat />}/>
         
       </Routes>
     </BrowserRouter>
