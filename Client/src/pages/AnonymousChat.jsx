@@ -2,17 +2,31 @@ import React,{useState} from "react";
 import io from "socket.io-client";
 import "./Chat.css"
 import ChatRoom from "./ChatRoom";
+
 const socket = io.connect("http://localhost:3001");
+
 function AnonymousChat(){
 
     const [username, setUsername] = useState("");
     const [room, setRoom] = useState("");
     const [showChat, setShowChat] = useState(false);
-  
+    const [modal,setModal] = useState(false);
+    const [showHelpDesk, setShowHelpDesk] = useState(false);
+    const toggleModal = () => {
+        setModal(!modal)
+    }
     const joinRoom = () => {
       if (username !== "" && room !== "") {
         socket.emit("join_room", room);
-        setShowChat(true);
+        console.log(room)
+        if(room.includes("HelpDesk"))
+        {
+            console.log("hi");
+            setShowHelpDesk(true);
+            console.log(showHelpDesk);
+        }else{
+            setShowChat(true);
+        }
       }
     };
   
@@ -23,7 +37,7 @@ function AnonymousChat(){
             <h3>Join A Chat</h3>
             <input
               type="text"
-              placeholder="John..."
+              placeholder="Name..."
               onChange={(event) => {
                 setUsername(event.target.value);
               }}
@@ -36,9 +50,15 @@ function AnonymousChat(){
               }}
             />
             <button onClick={joinRoom}>Join A Room</button>
+
           </div>
         ) : (
-            <ChatRoom socket={socket} username={username} room={room}/>
+            <>
+     
+                    <ChatRoom socket={socket} username={username} room={room}/>
+             
+            
+            </>
         )}
       </div>
     );

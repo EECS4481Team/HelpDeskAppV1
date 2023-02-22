@@ -1,7 +1,11 @@
 import React,{useState} from "react";
 import io from "socket.io-client";
-import "./Chat.css"
+import "./Chat.css";
+import {Link, useNavigate} from "react-router-dom";
 import ChatRoom from "./ChatRoom";
+import {ToastContainer, toast} from "react-toastify";
+import {chatRoute} from "../utils/APIRoutes";
+import axios from "axios";
 const socket = io.connect("http://localhost:3001");
 function Chat(){
 
@@ -9,7 +13,7 @@ function Chat(){
     const [room,setRoom] = useState("");
     const [showChat, setShowChat] = useState(false);
     var val = "";
-
+  
     if (window.location.pathname == "/chat/anon") {
       localStorage.setItem(`HelpDeskAppV1`, null);
     }
@@ -36,18 +40,19 @@ function Chat(){
 
     const joinRoom = () => {
       if (username !== "" && room !== ""){
+        console.log(room);
         socket.emit("join_room",room);
         setShowChat(true);
       }
     };
 
-
+    
     return (
       <div className="Chat">
         {!showChat ? (
       <div className="chatContainer">
        <h3> Join A Chat</h3>
-        <input type="text" placeholder="John ..." defaultValue={val} onChange={(event) => {setUsername(event.target.value);}}/>
+        <input type="text" placeholder="John ..." value={val} onChange={(event) => {setUsername(event.target.value);}}/>
         <input type="text" placeholder="Room ID ..." onChange={(event) => {setRoom(event.target.value);}}/> 
         <button onClick={joinRoom}> Join A Room</button>
       </div>
