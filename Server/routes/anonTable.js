@@ -1,9 +1,10 @@
 const express = require("express");
 const parser = require('body-parser');
 const router = express.Router();
-const mysql = require('mysql2');
+const mysql = require('mysql');
 const fs = require('fs');
 require('dotenv').config();
+const verify = require('./../verification.js');
 
 router.use(parser.json());
 router.use(parser.urlencoded({extended: true}));
@@ -26,28 +27,8 @@ con.connect( (err) =>
     else {console.log("DB Connection successful")};
 })
 
-const verifyToken = (request, response, next) => {
-    if(!request.headers.authorization)
-    {
-        return response.status(401).send("Unauthorized request");
-    }
-    const token = request.headers["authorization"].split(" ")[1];
-    if(!token)
-    {
-        return response.status(401).send("Access denied, No token provided")
-    }
-    try{
-        const decode = jwt.verify(token, process.env.JWT_KEY)
-        request.user = decode.user;
-        next();
-    }catch (err)
-    {
-        response.status(400).send("Invalid Token")
-    }
-}
-
 //get list of all users
-router.get("/", verifyToken, (request, response) => { 
+router.get("/", verify.verifyToken, (request, response) => { 
     
     con.query(`SELECT * FROM anonymous_user_table`, function (err, result, fields) {
             if (err) throw err;
