@@ -82,7 +82,7 @@ function Register(){
                     Already have an account ? <Link to="/login">Login</Link>
                     </span>
                     <span>  
-                    Are you an Anonymous User ? <Link to="/chat">Join Chat</Link>
+                    Are you an Anonymous User ? <Link to="/globalchat">Join Chat</Link>
                     </span>
             </form>
         </FormContainer>
