@@ -9,7 +9,7 @@ import axios from "axios";
 const socket = io.connect("http://localhost:3001");
 function Chat(){
 
-    const [username, setUsername] = useState("")
+    
     const [room,setRoom] = useState("");
     const [showChat, setShowChat] = useState(false);
     var val = "";
@@ -37,10 +37,13 @@ function Chat(){
       console.log(newStr);
       val = newStr;
     }
-
+    let [username, setUsername] = useState(val);
     const joinRoom = () => {
+        console.log("This is val: " + val);
+        console.log("This is Username: " +username);
+        username = val;
       if (username !== "" && room !== ""){
-        console.log(room);
+        console.log(username);
         socket.emit("join_room",room);
         setShowChat(true);
       }
