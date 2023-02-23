@@ -56,7 +56,7 @@ router.get("/email", verify.verifyToken, (request, response) => {
 router.post("/register", (request, response) =>
 {
     let input = request.body;
-    if( !input.username || !input.password || !input.email)
+    if( !input.userName || !input.password || !input.email)
     {
         response.status(400).send("All fields must be filled")
         return
@@ -74,7 +74,7 @@ router.post("/register", (request, response) =>
                 
                 con.query(`SELECT COUNT(*) as numRows FROM admin_table`, (err, result) =>
                 {
-                    let sqlQuery = `INSERT INTO admin_table (User_ID, UserName, PasswordHash, Email) VALUES (${result[0].numRows + 1}, '${input.username}', '${hash}', '${input.email}' )`;
+                    let sqlQuery = `INSERT INTO admin_table (User_ID, UserName, PasswordHash, Email) VALUES (${result[0].numRows + 1}, '${input.userName}', '${hash}', '${input.email}' )`;
                     con.query(sqlQuery, function (err, result) {
                         if (err) 
                         {
