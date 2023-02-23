@@ -17,6 +17,7 @@ const database = process.env.DATABASE_NAME;
 const databaseHost = process.env.DATABASE_HOST;
 const databaseport = process.env.DATABASE_PORT;
 
+
 const con = mysql.createConnection({
     host: databaseHost,
     user: username,
@@ -68,7 +69,6 @@ router.get("/GetAnons", (request, response) => {
     response.send(result[0]);
   });
 });
-
 
 // POST method to create a new chat room
 router.post("/create", (request, response) => {
@@ -151,6 +151,6 @@ router.delete("/delete", (request, response) => {
       if (error) throw error;
       response.send(`Chat room deleted with ID: ${ChatRoomID}`);
     });
-});
+  });
 
 module.exports = router;
