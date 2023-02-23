@@ -1,7 +1,7 @@
 const express = require("express");
 const parser = require('body-parser');
 const router = express.Router();
-const mysql = require('mysql');
+const mysql = require('mysql2');
 const fs = require('fs');
 require('dotenv').config();
 const verify = require('./../verification.js');

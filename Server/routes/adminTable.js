@@ -1,7 +1,7 @@
 const express = require("express");
 const parser = require('body-parser');
 const router = express.Router();
-const mysql = require('mysql');
+const mysql = require('mysql2');
 const fs = require('fs');
 const verify = require('./../verification.js');
 const bcrypt = require("bcrypt");
@@ -142,7 +142,7 @@ router.put("/newPassword", verify.verifyUserIdentity, (request, response) =>
             if (err) console.log(err);
             console.log(hash)
 
-                let sqlQuery = `UPDATE admin_table SET name = '${hash}' WHERE UserName = '${input.userName}'`;
+                let sqlQuery = `UPDATE admin_table SET name = '${hash}' WHERE UserName = '${input.username}'`;
                 con.query(sqlQuery, function (err, result) {
                     if (err) console.log(err);
                     else console.log("admin password updated");
@@ -157,7 +157,7 @@ router.put("/newPassword", verify.verifyUserIdentity, (request, response) =>
 router.put("/newEmail", verify.verifyUserIdentity, (request, response) =>
 {
     let input = request.body;
-    let sqlQuery = `UPDATE admin_table SET name = '${input.newMail}' WHERE UserName = '${input.userName}'`;
+    let sqlQuery = `UPDATE admin_table SET name = '${input.newMail}' WHERE UserName = '${input.username}'`;
 
     if(verifyUserIdentity(request, response))
     {
@@ -173,7 +173,7 @@ router.put("/newEmail", verify.verifyUserIdentity, (request, response) =>
 router.delete("/Delete", verify.verifyUserIdentity, (request, response) =>
 {
     let input = request.body;
-    let sqlQuery = `DELETE FROM admin_table WHERE UserName = '${input.userName}'`
+    let sqlQuery = `DELETE FROM admin_table WHERE UserName = '${input.username}'`
     if(verifyUserIdentity(request, response))
     {
         con.query(sqlQuery, function (err, result) {
