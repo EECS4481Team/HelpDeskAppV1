@@ -58,8 +58,9 @@ function GlobalChat(){
         ) : (
             <>
                 <GlobalChatRoom socket={socket} username={username} room={room}/>
-                        <h2>List of Private Chat Room</h2>
-                        <p> Hello </p>
+                        <h2>Contact with Super Admin with This RoomID</h2>
+                        <h3> If there is an error...</h3>
+                        <p> RoomID: <b>HelpDesk</b></p>
 
             </>
         )}

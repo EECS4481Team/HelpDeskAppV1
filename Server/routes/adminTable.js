@@ -56,7 +56,7 @@ router.get("/email", verify.verifyToken, (request, response) => {
 router.post("/register", (request, response) =>
 {
     let input = request.body;
-    if( !input.username || !input.password || !input.email)
+    if( !input.userName || !input.password || !input.email)
     {
         response.status(400).send("All fields must be filled")
         return
@@ -74,7 +74,7 @@ router.post("/register", (request, response) =>
                 
                 con.query(`SELECT COUNT(*) as numRows FROM admin_table`, (err, result) =>
                 {
-                    let sqlQuery = `INSERT INTO admin_table (User_ID, UserName, PasswordHash, Email) VALUES (${result[0].numRows + 1}, '${input.username}', '${hash}', '${input.email}' )`;
+                    let sqlQuery = `INSERT INTO admin_table (User_ID, UserName, PasswordHash, Email) VALUES (${result[0].numRows + 1}, '${input.userName}', '${hash}', '${input.email}' )`;
                     con.query(sqlQuery, function (err, result) {
                         if (err) 
                         {
@@ -142,7 +142,7 @@ router.put("/newPassword", verify.verifyUserIdentity, (request, response) =>
             if (err) console.log(err);
             console.log(hash)
 
-                let sqlQuery = `UPDATE admin_table SET name = '${hash}' WHERE UserName = '${input.username}'`;
+                let sqlQuery = `UPDATE admin_table SET name = '${hash}' WHERE UserName = '${input.userName}'`;
                 con.query(sqlQuery, function (err, result) {
                     if (err) console.log(err);
                     else console.log("admin password updated");
@@ -157,7 +157,7 @@ router.put("/newPassword", verify.verifyUserIdentity, (request, response) =>
 router.put("/newEmail", verify.verifyUserIdentity, (request, response) =>
 {
     let input = request.body;
-    let sqlQuery = `UPDATE admin_table SET name = '${input.newMail}' WHERE UserName = '${input.username}'`;
+    let sqlQuery = `UPDATE admin_table SET name = '${input.newMail}' WHERE UserName = '${input.userName}'`;
 
     if(verifyUserIdentity(request, response))
     {
@@ -173,7 +173,7 @@ router.put("/newEmail", verify.verifyUserIdentity, (request, response) =>
 router.delete("/Delete", verify.verifyUserIdentity, (request, response) =>
 {
     let input = request.body;
-    let sqlQuery = `DELETE FROM admin_table WHERE UserName = '${input.username}'`
+    let sqlQuery = `DELETE FROM admin_table WHERE UserName = '${input.userName}'`
     if(verifyUserIdentity(request, response))
     {
         con.query(sqlQuery, function (err, result) {
