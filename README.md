@@ -75,7 +75,7 @@ And install node modules using:
 npm install
 ```
 
-and create an ".env" file with the following information:
+and create an ".env" file in the server folder with the following information:
 
 ```bash
 PORT=3000
@@ -91,4 +91,4 @@ You can start the backend with
 npm start
 ```
 
-Now you can enjoy the app!
+With the frontend and backend both started, you now can enjoy the app!
