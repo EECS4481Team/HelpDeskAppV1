@@ -9,6 +9,7 @@ const socket = io.connect("http://localhost:3001");
 
 function GlobalChat(){
 
+    //Values mostly used for checks
     const [username, setUsername] = useState("");
     const room = useState("Public");
     const [showChat, setShowChat] = useState(false);
@@ -21,6 +22,7 @@ function GlobalChat(){
     const toggleModal = () => {
         setModal(!modal)
     }
+    //Determines how the user joins the chat room
     const joinRoom = () => {
       if (username !== "" && room !== "") {
         socket.emit("join_room", room);
@@ -28,6 +30,7 @@ function GlobalChat(){
         setShowChat(true);
       }
     };
+    //Direct to different pages from the buttons
     const movePrivate = () => {
       navigate("/chat/anon")
     }
@@ -39,6 +42,7 @@ function GlobalChat(){
     }
 
     return (
+      //render the page
       <div className="Chat">
         {!showChat ? (
           <div className="chatContainer">

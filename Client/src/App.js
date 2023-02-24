@@ -7,7 +7,9 @@ import Login from "./pages/Login";
 import SetAvatar from "./pages/SetAvatar";
 import AnonymousChat from "./pages/AnonymousChat";
 import GlobalChat from "./pages/GlobalChat";
+
 export default function App() {
+  //returns all the redirects to the different pages. Can also create the index page but not nessecary
   return(
     <BrowserRouter>
       <Routes>

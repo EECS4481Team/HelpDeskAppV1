@@ -20,7 +20,7 @@ function Login(){
     draggable: true,
     theme: "dark",
     }
-
+    //submit to check login against the backend database
     const handleSubmit = async (event)=>{
         event.preventDefault();
         if(handleValidation()){
@@ -43,7 +43,7 @@ function Login(){
             
         }
     };
-
+    //Checks if inputs are ok
     const handleValidation =() => {
         const {password,username} = values;
         if(password === ""){
@@ -56,11 +56,12 @@ function Login(){
         }
         return true;
     }
-
+    //to change inputs
     const handleChange = (event) =>{
         setValues({...values,[event.target.name]:event.target.value});
     };
     return (
+        //renders the page
     <>
         <FormContainer>
             <form onSubmit={(event)=>handleSubmit(event)}>

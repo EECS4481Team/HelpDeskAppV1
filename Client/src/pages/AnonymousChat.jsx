@@ -7,6 +7,7 @@ const socket = io.connect("http://localhost:3001");
 
 function AnonymousChat(){
 
+    //Values mostly used for checks
     const [username, setUsername] = useState("");
     const [room, setRoom] = useState("");
     const [showChat, setShowChat] = useState(false);
@@ -15,10 +16,13 @@ function AnonymousChat(){
     const toggleModal = () => {
         setModal(!modal)
     }
+    //Determines how the user joins the chat room
     const joinRoom = () => {
+      //Check if Username and room code is not empty
       if (username !== "" && room !== "") {
         socket.emit("join_room", room);
         console.log(room)
+        //Determines whether it is the help desk or just a chat
         if(room.includes("HelpDesk"))
         {
             console.log("hi");
@@ -32,6 +36,7 @@ function AnonymousChat(){
     };
   
     return (
+      //renders the page
       <div className="Chat">
         {!showChat ? (
           <div className="chatContainer">

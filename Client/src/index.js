@@ -7,23 +7,9 @@ import {Link} from 'react-router-dom';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render( 
-   <App />/*
-    <>
-    <div class="intro">
-    <div class="black"></div>  
-    <div class="white"></div>
-    <div class="boxfather">
-      <div class="box">
-        <h1>Anonymous Chat</h1>
-        <button type="button" class="btn1" onClick="javascript:window.location='/register'">Enter</button>
-      </div>
-    </div>
-    
-  </div>
-  
-  </>
-  
-*/);
+//Renders the app from /App, don't change here, change in App.js
+   <App />
+);
 
 
 

@@ -4,10 +4,12 @@ function GlobalChatRoom({socket,username,room}) {
     const [currentMessage, setCurrentMessage] =useState("");
     const [messageList, setMessageList] = useState([]);
 
+    //refresh function to go back
     function refreshPage() {
         window.location.reload(false);
     }
 
+    //create sent messages
     const sendMessage = async() =>{
         if(currentMessage !== ""){
             const messageData ={
@@ -30,7 +32,7 @@ function GlobalChatRoom({socket,username,room}) {
         })
       },[socket]);
   return (
-    
+    //Render messages
     <div className="chat-window">
         <div className="chat-header">
             <p>Global Chat Feel Free to Talk Each Other</p>

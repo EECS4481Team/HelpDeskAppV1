@@ -22,7 +22,7 @@ function Register(){
     draggable: true,
     theme: "dark",
     }
-
+    //submit to check registration against the backend database
     const handleSubmit = async (event)=>{
         event.preventDefault();
         if(handleValidation()){
@@ -42,7 +42,7 @@ function Register(){
             
         }
     };
-
+    //Checks if inputs are ok
     const handleValidation =() => {
         const {password,confirmPassword,userName,email} = values;
         if(password !== confirmPassword){
@@ -61,11 +61,12 @@ function Register(){
         }
         return true;
     }
-
+    //to change inputs
     const handleChange = (event) =>{
         setValues({...values,[event.target.name]:event.target.value});
     };
     return (
+        //renders the page
     <>
         <FormContainer>
             <form onSubmit={(event)=>handleSubmit(event)}>

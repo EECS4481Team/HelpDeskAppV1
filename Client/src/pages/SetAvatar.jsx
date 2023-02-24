@@ -8,7 +8,7 @@ import axios from "axios";
 import { setAvatarRoute } from "../utils/APIRoutes";
 import * as Buffer from 'Buffer';
 export default function SetAvatar() {
-  
+    //Will probably use in the future, need this page so app will run
     const api = "https://api.multiavatar.com/45678945";
     const navigate = useNavigate();
     const [avatars,setAvatars] = useState([]);

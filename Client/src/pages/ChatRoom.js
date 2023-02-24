@@ -4,7 +4,7 @@ function ChatRoom({socket,username,room}) {
     const [currentMessage, setCurrentMessage] =useState("");
     const [messageList, setMessageList] = useState([]);
 
-
+    //create sent messages
     const sendMessage = async() =>{
         if(currentMessage !== ""){
             const messageData ={
@@ -27,7 +27,7 @@ function ChatRoom({socket,username,room}) {
         })
       },[socket]);
   return (
-    
+    //Render messages
     <div className="chat-window">
         <div className="chat-header">
             <p>Live Chat</p>

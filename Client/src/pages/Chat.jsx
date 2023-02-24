@@ -9,11 +9,12 @@ import axios from "axios";
 const socket = io.connect("http://localhost:3001");
 function Chat(){
 
-    
+    //Values mostly used for checks
     const [room,setRoom] = useState("");
     const [showChat, setShowChat] = useState(false);
     var val = "";
-  
+
+    //Wipe localStorage if the page is not for admins 
     if (window.location.pathname == "/chat/anon") {
       localStorage.setItem(`HelpDeskAppV1`, null);
     }
@@ -37,11 +38,14 @@ function Chat(){
       console.log(newStr);
       val = newStr;
     }
+    //Set the username here for joinRoom
     let [username, setUsername] = useState(val);
+    //Determines how the user joins the chat room
     const joinRoom = () => {
         console.log("This is val: " + val);
         console.log("This is Username: " +username);
         username = val;
+      //Check if Username and room code is not empty
       if (username !== "" && room !== ""){
         console.log(username);
         socket.emit("join_room",room);
@@ -51,6 +55,7 @@ function Chat(){
 
     
     return (
+      //renders the page
       <div className="Chat">
         {!showChat ? (
       <div className="chatContainer">
