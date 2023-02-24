@@ -4,12 +4,12 @@ HelpDeskAppV1 is a web-based chat app that is in a pre-alpha build
 
 ## Before You Start (Locally)
 
-If you want to run it locally, make sure your have the following installed:
+If you want to run it locally, make sure you have the following installed:
 
 1. Node JS: https://nodejs.org/en/
 2. MySQL Workbench (Use MySQL Installer): https://dev.mysql.com/downloads/installer/
 
-Use the following to build the database tables:
+Use the following to build the database tables in MySQL Workbench:
 
 ```SQL
 CREATE DATABASE eecs4481;
@@ -75,13 +75,13 @@ And install node modules using:
 npm install
 ```
 
-and create an ".env" file in the server folder with the following information:
+and create an ".env" file in the server folder with the following information (Use your MySQL Workbench login):
 
 ```bash
-PORT=3000
+PORT=3001
 DATABASE_USERNAME="dbuserName"
 DATABASE_PASSWORD="dbpassword"
-DATABASE_NAME="dbName"
+DATABASE_NAME="eecs4481"
 DATABASE_HOST="localhost"
 JWT_KEY="resxg9ks28Diii1JbbpFDEQu7fsGXMg6BDnOq3N6"
 ```
@@ -91,4 +91,4 @@ You can start the backend with
 npm start
 ```
 
-With the frontend and backend both started, you now can enjoy the app!
+With the frontend and backend and MySQL Server all started, you now can enjoy the app!
