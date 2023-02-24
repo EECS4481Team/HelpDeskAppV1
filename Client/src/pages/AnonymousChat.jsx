@@ -24,6 +24,7 @@ function AnonymousChat(){
             console.log("hi");
             setShowHelpDesk(true);
             console.log(showHelpDesk);
+            setShowChat(true);
         }else{
             setShowChat(true);
         }
@@ -67,18 +68,4 @@ function AnonymousChat(){
 
 
 export default AnonymousChat;
-/*
-              
-            {modal && (
-                 <div className="modal">
-                 <div className="overlay"></div>
-                 <div className="modal-content">
-                     <h2>HelpDesk Code</h2>
-                     <p>Please type the following code</p>
-                     <li>HelpDesk</li>
-                     <button className="close-modal" onClick={toggleModal}>Close</button>
-             </div>
-             </div>
-            )}
-           */
           
